@@ -1,1 +1,39 @@
-theme: jekyll-theme-cayman
+## Mini Website Template
+
+## Title of the website, this will be used in the navigation and meta
+title: "Edmonton R User Group - YEGRUG"
+## Description to be used in the meta info of the pages
+description: "We're an online and in-person R-enthusiast group hosting live speaking events on a range of topics, from data wrangling to visualization and Shiny."
+## Author, this goes into the footer of the pages
+author: "Analythium Solutions Inc."
+
+## Base URL is the repository name wit ha leading slash
+baseurl: /
+## URL is the root domain/subdomain
+url: https://yegrug.github.io
+
+## Logo is a small image that gets displayed in the left corner of the navigation
+logo: https://yegrug.github.io/assets/images/R-logo-bo.png
+
+## Top navigation: include the name and link for each tab here
+navigation:
+  - name: Home
+    link: /
+  - name: Meetups
+    link: /meetups/
+  - name: Contact
+    link: https://github.com/yegrug/yegrug.github.io/discussions/
+
+## No need to touch things here unless you know what you are doing
+include: [".htaccess"]
+exclude: ["README.md", "LICENSE"]
+timezone: America/Edmonton
+encoding: UTF-8
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+gems:
+  - jekyll-feed
+  - jekyll-sitemap

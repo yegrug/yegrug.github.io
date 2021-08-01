@@ -1,8 +1,11 @@
-# Edmonton R User Group - YEGRUG
+---
+title: Edmonton R User Group - YEGRUG
+subtitle: Welcome R lovers far and wide!
+---
 
-### Welcome R lovers far and wide! 
+![banner](assets/images/YEGRUG-banner.jpg)
 
-> We're an online and in-person _R-enthusiast group_ hosting live speaking events on a range of topics, from data wrangling to visualization and Shiny.
+**We're an online and in-person R-enthusiast group hosting live speaking events on a range of topics, from data wrangling to visualization and Shiny.**
 
 You can join us _in person_ if possible or on one of our _live streams_ to learn R, hone your skills, network, or just to stay up-to-date. All skill levels are welcome.
 
