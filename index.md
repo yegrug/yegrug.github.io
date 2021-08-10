@@ -19,6 +19,6 @@ Please note that YEGRUG adheres to the [R Consortium and the R Community Code of
 
 ### Sponsors
 
-<a href="https://www.r-consortium.org/"></a><img src="assets/images/RConsortion-mark.png" width="200px" /></a>
+<a href="https://www.r-consortium.org/"><img src="assets/images/RConsortion-mark.png" width="200px" /></a>
 
-<a href="https://analythium.io/"></a><img src="assets/images/Analythium-mark.png" width="200px" /></a>
+<a href="https://analythium.io/"><img src="assets/images/Analythium-mark.png" width="200px" /></a>
