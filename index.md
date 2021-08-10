@@ -16,3 +16,9 @@ The Edmonton R User Group started as a student group at the University of Albert
 ### Code of Conduct
 
 Please note that YEGRUG adheres to the [R Consortium and the R Community Code of Conduct](https://wiki.r-consortium.org/view/R_Consortium_and_the_R_Community_Code_of_Conduct). By participating in YEGRUG, you agree to abide by its terms.
+
+### Sponsors
+
+<a href="https://www.r-consortium.org/"></a><img src="assets/images/RConsortion-mark.png" width="200px" /></a>
+
+<a href="https://analythium.io/"></a><img src="assets/images/Analythium-mark.png" width="200px" /></a>
