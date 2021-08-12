@@ -11,7 +11,7 @@ You can join us _in person_ if possible or on one of our _live streams_ to learn
 
 The Edmonton R User Group started as a student group at the University of Alberta between 2012 and 2014. After some years of hiatus, we are revitalizing this group due to the increasing interest in the Alberta data science and tech startup scene. **We are planning to host monthly meetups starting in September, 2021.**
 
-***If you would like to present in one of our upcoming meetups, please get in touch with the organizers by [starting a discussion](https://github.com/yegrug/yegrug.github.io/discussions)***
+***If you would like to present in one of our upcoming meetups, please get in touch with the organizers by on the groups' [Meetup page](https://www.meetup.com/edmonton-r-user-group-yegrug/)***
 
 ### Code of Conduct
 
@@ -22,3 +22,5 @@ Please note that YEGRUG adheres to the [R Consortium and the R Community Code of
 <a href="https://www.r-consortium.org/"><img src="assets/images/RConsortium-mark.png" width="200px" /></a>
 
 <a href="https://analythium.io/"><img src="assets/images/Analythium-mark.png" width="200px" /></a>
+
+_Edmonton is located on Treaty 6 territory, a traditional gathering place for diverse Indigenous peoples including the Cree, Blackfoot, Métis, Nakota Sioux, Iroquois, Dene, Ojibway/Saulteaux/Anishinaabe, Inuit, and many others whose histories, languages, and cultures continue to influence our community._
