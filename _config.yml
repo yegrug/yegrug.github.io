@@ -22,7 +22,7 @@ navigation:
   - name: Meetups
     link: /meetups/
   - name: Contact
-    link: https://github.com/yegrug/yegrug.github.io/discussions/
+    link: /contact/
 
 ## No need to touch things here unless you know what you are doing
 include: [".htaccess"]
