@@ -1,0 +1,178 @@
+---
+title: "R Code in production 12 Tips and Tricks"
+author: "Bruno Tremblay http://boostao.ca"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: sandstone
+    anchor_sections: true
+---
+
+<style type="text/css" rel="stylesheet">
+h3 { margin-left: -24px; }
+</style>
+
+> **Disclaimer : No need to follow all the rules, tips and tricks you read.**
+>
+> You are still the best judge when it comes to writing code. Context is a huge factor and you should not rely on any particular advice. Start by writing something that works. It does not need to be perfect.
+
+### 1. Microbench for performance critical code.
+
+Every decision is a trade off in production. `microbenchmark` from the library of the same name can help you decide which piece of code to use. Test multiple scenarios with different inputs. Experimentation is key.
+
+### 2. Use argument names in function call with more than one argument.
+
+Clearly defining argument values instead of relying on position has two clear benefits : readability and futureproofness. First, it will eliminate some guesswork for the people reading your code. Second, if the function call change in the future, it will reduce the amount of errors due to an expected argument position.
+
+```{r}
+sample(1:9, 15, TRUE)
+sample(x = 1:9, size = 15, replace = TRUE)
+```
+
+CRAN R package typically do not change their function calls argument position. In any case, better safe than sorry.
+
+### 3. Subset with `[[` instead of `$`.
+
+Declare `x` as a list with element `crowd`.
+```{r}
+x <- list(crowd = 10)
+```
+   
+Retrieve a similarly named element `crow` using `$`. What do you expect?
+```{r}
+x$crow
+```
+Retrieve a similarly named element `crow` using `[[`. What do you expect?
+```{r}
+x[["crow"]]
+```
+
+Explanation : The `$` operator does partial name matching by default. You can use option `warnPartialMatchDollar` to be warned when this behavior occurs.
+```{r}
+options(warnPartialMatchDollar = TRUE)
+x$crow
+```
+```{r message=FALSE, include=FALSE}
+options(warnPartialMatchDollar = NULL)
+```
+
+Use `[[` to avoid partial match. `[[` is also ~25% to 33% more efficient.
+```{r eval=FALSE, include=TRUE}
+microbenchmark::microbenchmark(x$crowd, x[["crowd"]], times = 10000)
+```
+
+You can learn about this behavior from the `?Extract` documentation. If you feel adventurous, you can read these functions C definition here : [`[[` source code](https://github.com/wch/r-source/blob/cb381108353a0c78ea01849b3aa12d4dc88bfd5e/src/main/subset.c#L896) | [`$` source code](https://github.com/wch/r-source/blob/cb381108353a0c78ea01849b3aa12d4dc88bfd5e/src/main/subset.c#L1208).
+
+
+### 4. Replace `is.na` + `==` with `%in%` when operating on data frame columns.
+
+`%in%` operator returns TRUE or FALSE when evaluating NA.
+
+```{r}
+c(NA, 2:5) == 5
+```
+
+```{r}
+c(NA, 2:5) %in% 5
+```
+
+It can be useful when you have to check for NA and equality on vectors and data frame columns. Of course, `%in%` is also pretty useful when you need to validate if a value is part of predefined set.
+```{r eval=FALSE, include=TRUE}
+y <- sample(x = c(NA, 2:5), size = 10000, replace = TRUE)
+f1 <- function(x) ifelse(test = is.na(x), yes = FALSE, no = x == 5)
+f2 <- function(x) x %in% 5
+microbenchmark::microbenchmark(f1(y), f2(y))
+```
+
+### 5. Use an environment to store global variables.
+
+Environment are practical to store application state and other parameters. You put all of them in one place instead of overpopulating the global environment.
+
+```{r}
+store <- new.env()
+store[["appstate"]] <- "working"
+store[["loglevel"]] <- "info"
+store[["dbpoolsize"]] <- 15
+ls(envir = store)
+store[["appstate"]]
+```
+
+### 6. Check for NA, NULL, length one all at once with `isTRUE`.
+
+`isTRUE` will always return TRUE or FALSE, whatever you feed it. This is a convenience function. It could be used on user inputs validation for example.
+
+```{r}
+isTRUE(mtcars)
+isTRUE(is.numeric(1:5))
+isTRUE(NA)
+isTRUE(NULL)
+isTRUE(c(TRUE, TRUE))
+```
+
+### 7. Consider `any` and `all` on logical vectors.
+
+When you have to evaluate if all values are TRUE (`all`) or if any one value is TRUE (`any`).
+
+### 8. Know the difference between `&`/`|` and `&&`/`||`.
+
+`&` and `|` operates elementwise and will return a logical vector.
+`&&` and `||` will only use the first element of each vector.
+
+`if` clause should use `&&` and `||`.
+
+The `?Logic` documentation has greater details.
+
+### 9. You can call `names<-` and other assignment function directly.
+
+Sometimes it is useful to call an assignment function directly to avoid creating temporary variables. You just have to put them between grave accents.
+```{r}
+`names<-`(x = 1:5, value = c("apple", "orange", "lemon", "grape", "banana"))
+```
+
+You can use this trick with the apply family of functions. Say you want all `b` elements from nested lists.
+```{r}
+x <- list(list(a=5, b=3), list(a=4, b=6), list(a=9, b=1))
+sapply(X = x, FUN = `[[`, ... = "b")
+```
+
+### 10. Substitute `library` with a quiet `requireNamespace`.
+
+A `library` call assumes the host that runs your code has already installed the required package. If you want to better manage what happens when a particular package is not available, you should use `requireNamespace` since it returns TRUE or FALSE.
+
+The following code will load package `xml2` if available or install it and then load it.
+```{r}
+pkg <- "xml2"
+if (!requireNamespace(package = pkg, quietly = TRUE)) {
+  install.packages(pkg)
+  loadNamespace(pkg)
+}
+```
+
+It assumes connection to CRAN from host are possible. This might not be the case and you may want to issue a warning message instead.
+
+### 11. Delete temporary files using `on.exit` expression.
+
+Sometimes a function will require the creation of a temporary file. Since you should clean up after yourself, it is better to use on `on.exit` statement to unlink the file.
+
+By using `on.exit` you can put the deletion action logic after the file creation. Plus, in case of error, the file is still deleted.
+
+Most of the times, `on.exit` should be used with argument `add` set to TRUE to avoid replacing already defined `on.exit` expressions.
+```{r}
+myfile <- tempfile()
+on.exit(expr = unlink(myfile), add = TRUE)
+```
+
+### 12. Exploit attributes with `attr` and `attributes`.
+
+Attributes in R are metadata about an object. They are used to store names, classes, levels or any sort of information about an R object.
+
+You can leverage attributes to store model author and creation date for example. Another common use case is storing information about a data frame like source and description. You can store just about anything in an attribute.
+
+```{r}
+dt <- mtcars
+attr(x = dt, which = "source") <- "Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391–411."
+attr(x = dt, which = "description") <- "The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)."
+attributes(dt)
+```
