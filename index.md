@@ -11,7 +11,7 @@ You can join us _in person_ if possible or on one of our _live streams_ to learn
 
 The Edmonton R User Group started as a student group at the University of Alberta between 2012 and 2014. After some years of hiatus, we are revitalizing this group due to the increasing interest in the Alberta data science and tech startup scene. **We are planning to host monthly meetups starting in September, 2021.**
 
-***If you would like to present in one of our upcoming meetups, please get in touch with the organizers by on the groups' [Meetup page](https://www.meetup.com/edmonton-r-user-group-yegrug/)***
+***If you would like to present in one of our upcoming meetups, please get in touch with the organizers on the groups' [Meetup page](https://www.meetup.com/edmonton-r-user-group-yegrug/)***
 
 ### Code of Conduct
 
