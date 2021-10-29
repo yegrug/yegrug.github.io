@@ -6,4 +6,5 @@ title: Meetups
 
 ## 2021
 
+- [October 28: R Open Science with Steffi LaZerte](2021-10-28)
 - [September 30: R in Production with Bruno Tremblay](2021-09-30)
