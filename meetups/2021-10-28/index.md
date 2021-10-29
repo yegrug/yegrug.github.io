@@ -25,5 +25,5 @@ Tips and tricks:
 
 Resources:
 
-- [Intro slides by Peter and Marcus](YEGRUG-intro.pdf)
+- [Intro slides by Peter and Marcus](YEGRUG-intro-2021-10.pdf)
 - [ROpenSci slides by Steffi LaZerte]([rOpenSci.html](https://steffilazerte.ca/Presentations/2021-10%20Edmonton%20R%20user%20group%20-%20rOpenSci/Edmonton_R_user_rOpenSci.html#1))
