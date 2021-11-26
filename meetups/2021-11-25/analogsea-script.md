@@ -1,4 +1,7 @@
-# analogsea tutorial
+---
+title: "analogsea tutorial"
+---
+
 > YEGRUG - November 25, 2021: Model fitting in the cloud with Mauricio Vargas
 
 ```R
