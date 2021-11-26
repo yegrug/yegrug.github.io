@@ -9,7 +9,7 @@ Mauricio is a statistician from Chile, now doing his PhD in Toronto. He has work
 ## Resources
 
 - [Intro slides by Peter and Marcus](YEGRUG_2021_11.pdf)
-- [analogsea demo script](analogsea-script.R)
+- [analogsea demo script](analogsea-script.html)
 - [General equilibrium trade policy analysis](https://r.tiid.org/R_structural_gravity/general-equilibrium-trade-policy-analysis-with-structural-gravity.html)
 - [link where you can sign up and receive $100 US free credit with DigitalOcean](https://m.do.co/c/6119f0430dad) to play with the platform and the package
 
