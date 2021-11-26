@@ -1,7 +1,7 @@
-## analogsea tutorial
-## Model fitting in the cloud with Mauricio Vargas
-## YEGRUG - November 25, 2021
+# analogsea tutorial
+> YEGRUG - November 25, 2021: Model fitting in the cloud with Mauricio Vargas
 
+```R
 library(analogsea)
 library(tidyverse)
 library(future)
@@ -147,3 +147,4 @@ gapminder_nube %>%
 
 droplet_delete(droplet1)
 # droplet_delete(droplet2)
+```
