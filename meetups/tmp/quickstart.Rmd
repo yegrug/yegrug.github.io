@@ -1,0 +1,164 @@
+---
+title: "R quickstart"
+author: "Peter Solymos"
+output: html_document
+---
+
+## Basic data structures and operations in R
+
+R is a great calculator:
+
+```{r}
+1 + 2
+```
+
+Assign a value and print an object:
+
+```{r}
+print(x)
+(x = 2) # shorthand for print
+x == 2 # logical operator, not assignment
+y <- x + 0.5
+y # another way to print
+```
+
+Logical operators:
+
+```{r}
+x == y # equal
+x != y # not eaqual
+x < y # smaller than
+x >= y # greater than or equal
+```
+
+Vectors and sequences:
+
+```{r}
+x <- c(1, 2, 3)
+x
+1:3
+seq(1, 3, by = 1)
+
+rep(1, 5)
+rep(1:2, 5)
+rep(1:2, each = 5)
+```
+
+Vector operations, recycling:
+
+```{r}
+x + 0.5
+x * c(10, 11, 12, 13)
+```
+
+Indexing vectors, ordering:
+
+```{r}
+x[1]
+x[c(1, 1, 1)] # a wey of repeatig values
+x[1:2]
+x[x != 2]
+x[x == 2]
+x[x > 1 & x < 3]
+order(x, decreasing=TRUE)
+x[order(x, decreasing=TRUE)]
+rev(x) # reverse
+```
+
+Character vectors, `NA` values, and sorting:
+
+```{r}
+z <- c("b", "a", "c", NA)
+z[z == "a"]
+z[!is.na(z) & z == "a"]
+z[is.na(z) | z == "a"]
+is.na(z)
+which(is.na(z))
+sort(z)
+sort(z, na.last=TRUE)
+```
+
+Matrices and arrays:
+
+```{r}
+(m <- matrix(1:12, 4, 3))
+matrix(1:12, 4, 3, byrow=TRUE)
+
+array(1:12, c(2, 2, 3))
+```
+
+Attribues:
+
+```{r}
+dim(m)
+dim(m) <- NULL
+m
+dim(m) <- c(4, 3)
+m
+dimnames(m) <- list(letters[1:4], LETTERS[1:3])
+m
+attributes(m)
+```
+
+Matrix indices:
+
+```{r}
+m[1:2,]
+m[1,2]
+m[,2]
+m[,2,drop=FALSE]
+m[2]
+
+m[rownames(m) == "c",]
+m[rownames(m) != "c",]
+m[rownames(m) %in% c("a", "c", "e"),]
+m[!(rownames(m) %in% c("a", "c", "e")),]
+```
+
+Lists and indexing:
+
+```{r}
+l <- list(m = m, x = x, z = z)
+l
+l$ddd <- sqrt(l$x)
+l[2:3]
+l[["ddd"]]
+```
+
+Data frames:
+
+```{r}
+d <- data.frame(x = x, sqrt_x = sqrt(x))
+d
+```
+
+Structure:
+
+```{r}
+str(x)
+str(z)
+str(m)
+str(l)
+str(d)
+str(as.data.frame(m))
+str(as.list(d))
+```
+
+Summary:
+
+```{r}
+summary(x)
+summary(z)
+summary(m)
+summary(l)
+summary(d)
+```
+
+> ### Key concepts
+> 
+> * a matrix is a vector with `dim` attribute, elements are in same mode,
+> * a data frame is a list where length of elements match and elements can be in different mode.
+
+
+
+Up next: Tidyverse, ggplot
