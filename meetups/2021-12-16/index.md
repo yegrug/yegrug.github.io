@@ -9,7 +9,8 @@ We’re an online and in-person R-enthusiast group hosting live speaking events 
 
 ## Resources
 
-- [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday)
+- [One (gg)plot(2) to rule them all](https://yegrug.github.io/data-vis-practice/ggplot2-intro_2021-12-16.html#1) (slides)
+- [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday) datasets
 
 ## Packages mentioned
 
