@@ -4,6 +4,9 @@ title: Meetups
 
 ***If you would like to present in one of our upcoming meetups, please get in touch with the organizers by on the groups' [Meetup page](https://www.meetup.com/edmonton-r-user-group-yegrug/)***
 
+## 2022
+
+- [January 31: Interfacing R with ArcGIS by Brandon Allen](2022-01-31)
 ## 2021
 
 - [December 16: ggplot2 intro with Marcus Becker](2021-12-16)
