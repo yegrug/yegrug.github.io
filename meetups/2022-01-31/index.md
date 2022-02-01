@@ -6,8 +6,8 @@ Brandon Allen talked about how to interface R with ArcGIS and the ArcPy Python p
 
 ## Resources
 
-- [Intro slides](./YEGRUG_2022_01.pdf) by Peter Solymos
-- [RPyGeo slides]()
+- [Intro slides](YEGRUG_2022_01.pdf) by Peter Solymos
+- [RPyGeo slides](rpygeo_2022-01-31.pdf) by Brandon Allen
 
 ## Packages mentioned
 
