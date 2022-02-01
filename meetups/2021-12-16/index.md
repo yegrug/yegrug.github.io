@@ -1,5 +1,5 @@
 ---
-title: "December 16: ggplot2 intro with Marcus Becker"
+title: "December 16, 2021: ggplot2 intro with Marcus Becker"
 ---
 
 [Marcus Becker](https://twitter.com/mabecker89) walked through a new Tidy Tuesday dataset, show some basic data exploration techniques, and went over some ways to visualize the data in ggplot2. The session will be useful for newcomers to ggplot2, but also contain enough nuggets of ggplot2 gold to help experienced users learn something too!

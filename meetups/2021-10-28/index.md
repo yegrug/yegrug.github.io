@@ -1,5 +1,5 @@
 ---
-title: "October 28: R Open Science with Steffi LaZerte"
+title: "October 28, 2021: R Open Science with Steffi LaZerte"
 ---
 
 Our October R User Group (YEG RUG) meetup welcomed Stefanie LaZerte who talked about rOpenSci (<https://ropensci.org/>). The mission of rOpenSci is to transform science through open data, software & reproducibility. Besides working with rOpenSci, Steffi is an award winning behavioral ecologist, R programmer, and biological consultant, see here impressive portfolio at <https://steffilazerte.ca/>.

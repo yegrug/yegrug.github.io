@@ -1,5 +1,5 @@
 ---
-title: "November 25: Model fitting in the cloud with Mauricio Vargas"
+title: "November 25, 2021: Model fitting in the cloud with Mauricio Vargas"
 ---
 
 We welcomed Mauricio "Pachá" Vargas to our Meetup in November 2021. He presented a talk entitled "_analogsea: Using Arrow, S3 and DigitalOcean for efficient model fitting in the cloud_".

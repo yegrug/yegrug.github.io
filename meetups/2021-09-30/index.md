@@ -1,5 +1,5 @@
 ---
-title: "September 30: R in Production with Bruno Tremblay"
+title: "September 30, 2021: R in Production with Bruno Tremblay"
 ---
 
 This meeting is our first meeting in this decade, so Marcus and Peter are going to give a brief intro about the Edmonton R User Group (YEGRUG). Come and join the conversation so you can actively shape where YEGRUG should go!
