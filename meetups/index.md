@@ -6,6 +6,7 @@ title: Meetups
 
 ## 2022
 
+- [February 24: YEGRUG and CalgaryR joint meetup and social](2022-02-24)
 - [January 31: Interfacing R with ArcGIS by Brandon Allen](2022-01-31)
 
 ## 2021
