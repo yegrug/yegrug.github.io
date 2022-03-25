@@ -1,5 +1,5 @@
 ---
-title: "March 24, 2022: Step-by-step guide for parallelizing your R code"
+title: "March 24, 2022: Step-by-step guide for parallelizing your R code with Peter Solymos"
 ---
 
 The mini-workshop teaches you how to identify the parts of your workflow that can be easily parallelized. Quickly gain parallel superpowers and know exactly how much time you have before the jobs are complete, so you can hop out for a coffee!
