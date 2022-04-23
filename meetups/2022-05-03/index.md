@@ -1,0 +1,7 @@
+---
+title: "May 3&ndash;4: My organization's 1st R package &ndash; 2-day workshop with Mauricio Vargas"
+---
+
+If your organization uses R, there are clear benefits to having an organizational R package. Such benefits can be realized whether there is only a single R user or dozens of them. An R package focused on the particular needs of an organization can open up a world of possibilities including easier data access, shared functions for data transformation and analysis, and a common look and feel for reporting.
+
+Creating your first organizational R package can be daunting however. You may wonder: _"what functions should be included?"_, _"how would colleagues install the package (and updates)?"_, _"what could be done to ensure there is sufficient quality control?"_. This workshop will demonstrate how to get an organizational R package off the ground. We'll take a look at planning the package and understanding the requirements of the internal stakeholders. We'll consider how the package could fit in with existing organizational infrastructure. We'll design and implement functions for data access, data analysis, and reporting. One of the hardest parts of the process could very well be gaining and maintaining internal support for an organizational package project. To address this, we'll work through ways to communicate value and to develop an internal community of colleagues to sustain the project and to make it a valuable part of the core infrastructure.
