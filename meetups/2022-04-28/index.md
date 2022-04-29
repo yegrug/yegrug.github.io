@@ -8,3 +8,10 @@ This is where R meets JavaScript. [ECharts](https://echarts.apache.org/) is one 
 
 At our April Meetup, [**Michael Thomas**](https://twitter.com/mike_ketchbrook) introduce us to echarts4r.
 Michael Thomas is the Chief Data Scientist at [Ketchbrook Analytics](https://www.ketchbrookanalytics.com/), a data science consultancy based in Hartford, CT, that specializes in R and Shiny development. He enjoys taking the time to find the right solution for the problem, and has a passion for teaching others about healthy software development practices. Michael gets just as excited crafting machine learning models as he does building web applications, and he is a frequent speaker at events and conferences in the data science space.
+
+## Resources
+
+- [Link to video recording](https://youtu.be/TN10L3QrBXQ)
+- [Code on GitHub](https://github.com/ketchbrookanalytics/echarts4r-intro)
+- [ECharts](https://echarts.apache.org/)
+- [echarts4r R package](https://echarts4r.john-coene.com/)
