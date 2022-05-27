@@ -6,6 +6,8 @@ The mini-workshop teaches you how to identify the parts of your workflow that ca
 
 **Peter Solymos** (YEGRUG organizer), showcased a step-by-step approach to interactively developing code, encapsulating it into a loop, then a function. In the end, you learn how to run code in parallel building upon these vectorized functions.
 
+<iframe width="748" height="468" src="https://www.youtube.com/embed/uyhIiTTrTJY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 - [Link to video recording of the Meetup event](https://youtu.be/uyhIiTTrTJY)
 - [Slides](YEGRUG_2022_03.pdf)
 - [GitHub repo: the road to progress](https://github.com/psolymos/the-road-to-progress)
