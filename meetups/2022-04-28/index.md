@@ -1,5 +1,5 @@
 ---
-title: "April 28: eCharts4r for Interactive Visualization with Michael Thomas"
+title: "April 28, 2022: eCharts4r for Interactive Visualization with Michael Thomas"
 ---
 
 Since the implementation of the grammar of graphics in the ggplot2 R package, R became the standard for scientific data visualization. But what if I told you that even ggplot graphics can be improved by making the charts interactive and turbocharged with animations as part of the data story telling?

@@ -1,5 +1,5 @@
 ---
-title: "May 3: My organization's 1st R package &ndash; 1-day workshop with Mauricio Vargas"
+title: "May 3, 2022: My organization's 1st R package &ndash; 1-day workshop with Mauricio Vargas"
 ---
 
 If your organization uses R, there are clear benefits to having an organizational R package. Such benefits can be realized whether there is only a single R user or dozens of them. An R package focused on the particular needs of an organization can open up a world of possibilities including easier data access, shared functions for data transformation and analysis, and a common look and feel for reporting.

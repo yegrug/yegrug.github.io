@@ -1,5 +1,5 @@
 ---
-title: "May 26: Creating a website for scientific and technical communication with Ronny A. Hernández Mora"
+title: "May 26, 2022: Creating a website for scientific and technical communication with Ronny A. Hernández Mora"
 ---
 
 Ronny introduced [Distill](https://rstudio.github.io/distill/), which is an R package, that comes with handy features to create scientific and technical communication. In this talk, he went through the process of creating a distill website hosted on GitHub with the content created with [RMarkdown](https://rmarkdown.rstudio.com/) documents and distill.
