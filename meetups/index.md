@@ -6,7 +6,8 @@ title: Meetups
 
 ## 2022
 
-- [Displaying raster files in R with Leaflet with Peter Solymos](2022-06-23)
+- [September 29: 2022/2023 kick-off](2022-09-29)
+- [June 23: Displaying raster files in R with Leaflet with Peter Solymos](2022-06-23)
 - [May 26: Creating a website for scientific and technical communication with Ronny A. Hernández Mora](2022-05-26)
 - [May 3: My organization's 1st R package &ndash; 1-day workshop with Mauricio Vargas](2022-05-03)
 - [April 28: eCharts4r for Interactive Visualization with Michael Thomas](2022-04-28)
