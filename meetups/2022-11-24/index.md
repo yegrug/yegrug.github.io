@@ -12,9 +12,11 @@ Peter Solymos, YEGRUG organizer, presented the bananas data set and a ML classif
 
 This was a hybrid -- in person and online -- envent.
 
+<iframe width="748" height="421" src="https://www.youtube.com/embed/SjMr1s5uyVo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Resources
 
-- Video: to come ...
+- [Video recording](https://youtu.be/SjMr1s5uyVo)
 - [Intro slides](YEGRUG-2022-11-24.pdf)
 - [Shiny & Bananas slides](YEGRUG-2022-11-24-bananas.pdf)
 - [Bananas data GitHub repository](https://github.com/psolymos/bananas)
