@@ -12,7 +12,7 @@ Peter Solymos, YEGRUG organizer, presented the bananas data set and a ML classif
 
 This was a hybrid -- in person and online -- envent.
 
-<iframe width="748" height="421" src="https://www.youtube.com/embed/SjMr1s5uyVo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="748" height="421" src="https://www.youtube.com/embed/wr4G-BWdBns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Resources
 
