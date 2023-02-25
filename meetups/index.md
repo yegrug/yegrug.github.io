@@ -4,6 +4,10 @@ title: Meetups
 
 ***If you would like to present in one of our upcoming meetups, please get in touch with the organizers by on the groups' [Meetup page](https://www.meetup.com/edmonton-r-user-group-yegrug/)***
 
+## 2023
+
+- [February 23: Fast spatial analysis and kriging on grids with Dean Koch](2023-02-23)
+
 ## 2022
 
 - [November 24: Going bananas with Shiny with Peter Solymos](2022-11-24)
