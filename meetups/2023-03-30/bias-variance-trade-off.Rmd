@@ -1,0 +1,397 @@
+---
+title: "Bias-Variance Trade-off"
+date: "YEGRUG 2023-03-30"
+output:
+  pdf_document:
+    keep_tex: no
+    number_sections: no
+    toc_depth: 2
+    toc: no
+fontsize: 11pt
+classoption: letterpaper
+urlcolor: blue
+---
+
+# Install dependencies
+
+```{r eval=FALSE}
+install.packages("deps")
+deps::install(ask=FALSE)
+```
+
+# Linear regression
+
+The data generating model
+
+```{r}
+set.seed(2)
+sig2 <- 1
+n <- 100
+x <- sort(runif(n, -1, 2))
+mu <- sin(x) - 0.5*sin(x)^2 + 0.5*cos(x) - 3*cos(x)^2
+
+eps <- rnorm(n, 0, sqrt(sig2))
+y <- mu + eps
+
+plot(y ~ x)
+lines(mu ~ x, col="#00000044", lwd=5)
+```
+
+Regression
+
+```{r}
+d <- data.frame(x=x, x2=x^2, x3=x^3, x4=x^4, x5=x^5, x6=x^6)
+
+m0 <- lm(y ~ 1, d)
+m1 <- lm(y ~ x, d)
+m2 <- lm(y ~ x + x2, d)
+m3 <- lm(y ~ x + x2 + x3, d)
+
+summary(m0)
+coef(m0)
+summary(m0)$sigma
+
+summary(m3)
+coef(m3)
+summary(m3)$sigma
+
+fit <- coef(m3)[1] + coef(m3)[2]*x + coef(m3)[3]*x^2 + coef(m3)[4]*x^3
+plot(fit ~ fitted(m3))
+abline(0,1)
+```
+
+```{r}
+plot(y ~ x)
+lines(mu ~ x, col="#00000044", lwd=5)
+lines(fitted(m0) ~ x, col=1)
+lines(fitted(m1) ~ x, col=2)
+lines(fitted(m2) ~ x, col=3)
+lines(fitted(m3) ~ x, col=4)
+```
+
+# Uncertainty quantification
+
+```{r}
+library(intrval)
+
+predict_sim <-
+function(object, newdata=NULL,
+interval = c("none", "confidence", "prediction"),
+type=c("asymp", "pboot", "npboot"),
+level=0.95, B=99, ...) {
+    interval <- match.arg(interval)
+    type <- match.arg(type)
+    if (is.null(newdata)) {
+        x <- model.frame(object)
+        X <- model.matrix(object)
+    } else {
+        x <- model.frame(delete.response(terms(object)), newdata)
+        X <- model.matrix(attr(x, "terms"), x)
+    }
+    n <- nrow(x)
+    fun <- switch(family(object)$family,
+        "gaussian"=function(x) rnorm(length(x), x, summary(object)$sigma),
+        "poisson"= function(x) rpois(length(x), x),
+        "binomial"=function(x) rbinom(length(x), 1, x),
+        stop("model family not recognized"))
+    if (interval=="none")
+        return(predict(object, newdata, ...))
+    if (B < 2)
+        stop("Are you kidding? B must be > 1")
+    if (type == "asymp") {
+        cm <- rbind(coef(object),
+            MASS::mvrnorm(B, coef(object), vcov(object)))
+        #fm <- apply(cm, 1, function(z) X %*% z)
+    }
+    if (type == "boot") {
+        cm <- matrix(0, B+1, length(coef(object)))
+        cm[1,] <- coef(object)
+        xx <- model.frame(object)
+        for (i in 2:B) {
+            j <- sample.int(n, n, replace=TRUE)
+            cm[i,] <- coef(update(object, data=xx[j,]))
+        }
+    }
+    if (type == "npboot") {
+        cm <- matrix(0, B+1, length(coef(object)))
+        cm[1,] <- coef(object)
+        xx <- model.frame(object)
+        j <- attr(attr(xx, "terms"), "response")
+        f <- fitted(object)
+        for (i in 2:B) {
+            xx[,j] <- fun(f)
+            cm[i,] <- coef(update(object, data=xx))
+        }
+    }
+    fm <- X %*% t(cm)
+    fm <- family(object)$linkinv(fm)
+    y <- if (interval == "prediction")
+        matrix(fun(fm), n, B+1) else fm
+    rownames(y) <- rownames(x)
+    p <- c(0.5, (1-level) / 2, 1 - (1-level) / 2)
+    stat_fun <- function(x)
+        c(mean(x), sd(x), quantile(x, p))
+    out <- cbind(fm[,1], t(apply(y, 1, stat_fun)))
+    colnames(out) <- c("fit", "mean", "se", "median", "lwr", "upr")
+    data.frame(out[,c("fit", "lwr", "upr", "mean", "median", "se")])
+}
+
+vcov(m0)
+coef(summary(m0))[,1:2,drop=FALSE]
+cbind(coef(m0), sqrt(vcov(m0)))
+
+vcov(m3)
+coef(summary(m3))[,1:2]
+cbind(coef(m3), sqrt(diag(vcov(m3))))
+```
+
+Try this with different models and type as `"asymp"` or `"npboot"`
+
+```{r}
+mod <- m3
+type <- "asymp"
+CI <- predict_sim(mod, newdata=d, interval="confidence", type=type)
+PI <- predict_sim(mod, newdata=d, interval="prediction", type=type)
+
+table(y %[]% PI[,c("lwr", "upr")])/n
+
+plot(y ~ x)
+lines(mu ~ x, col="#00000044", lwd=5)
+lines(fit ~ x, CI)
+polygon(c(x, rev(x)), c(CI$lwr, rev(CI$upr)), border=NA, col="#0000ff44")
+polygon(c(x, rev(x)), c(PI$lwr, rev(PI$upr)), border=NA, col="#ff000044")
+```
+
+# The trade-off
+
+```{r}
+sim_fun <- function() {
+    eps <- rnorm(n, 0, sqrt(sig2))
+    y <- mu + eps
+    y
+}
+pred_fun <- function(y, x) {
+    m1 <- lm(y ~ x, d)
+    m2 <- lm(y ~ x + x2, d)
+    m3 <- lm(y ~ x + x2 + x3, d)
+    m4 <- lm(y ~ x + x2 + x3 + x4, d)
+    m5 <- lm(y ~ x + x2 + x3 + x4 + x5, d)
+    m6 <- lm(y ~ x + x2 + x3 + x4 + x5 + x6, d)
+    dnew <- data.frame(x=x, x2=x^2, x3=x^3, x4=x^4, x5=x^5, x6=x^6)
+    sapply(list(m1=m1, m2=m2, m3=m3, m4=m4, m5=m5, m6=m6), function(z)
+        predict(z, newdata=dnew))
+}
+vb_fun <- function(fit, i) {
+    mu0 <- mu[i]
+    Bias <- mean(fit) - unname(mu0)
+    Var <- mean((fit - mean(fit))^2)
+    c(Bias=Bias, Var=Var)
+}
+
+yobs <- sim_fun()
+head(yobs)
+pr <- pred_fun(y = yobs, x = x[1])
+pr
+vb_fun(pr, i=1)
+```
+
+```{r}
+## using only a single observation
+i <- 1
+yall <- replicate(200,sim_fun())
+fitall <- apply(yall, 2, function(z) pred_fun(z, x=x[i]))
+vb <- apply(fitall, 1, vb_fun, i=1)
+vb
+vb["Bias",]^2
+
+plot(1:6, (vb["Bias",]^2 + vb["Var",]), type="l", lwd=2, 
+    ylim=c(0, max(vb["Bias",]^2 + vb["Var",])), 
+    xlab="model complexity", ylab="relative magnitude")
+lines(1:6, vb["Var",], type="l", lwd=2, col=2)
+lines(1:6, vb["Bias",]^2, type="l", lwd=2, col=4)
+legend("topright", bty="n", col=c(1,2,4), lty=1, lwd=2,
+    legend=c("MSE", "Variance", "Bias^2"))
+```
+
+# A single realization
+
+```{r}
+set.seed(3)
+y <- sim_fun()
+```
+
+# lm
+
+```{r}
+m1 <- lm(y ~ x, d)
+m2 <- lm(y ~ x + x2, d)
+m3 <- lm(y ~ x + x2 + x3, d)
+m4 <- lm(y ~ x + x2 + x3 + x4, d)
+m5 <- lm(y ~ x + x2 + x3 + x4 + x5, d)
+m6 <- lm(y ~ x + x2 + x3 + x4 + x5 + x6, d)
+aic <- AIC(m1, m2, m3, m4, m5, m6)
+aic$dAIC <- aic$AIC - min(aic$AIC)
+aic
+best <- list(m1, m2, m3, m4, m5, m6)[[which.min(aic$AIC)]]
+summary(best)
+
+plot(y ~ x, main="lm")
+lines(x, mu)
+lines(x, fitted(best), col=2)
+```
+
+# gam
+
+```{r}
+library(mgcv)
+mod <- mgcv::gam(y ~ s(x), family=gaussian)
+summary(mod)
+
+plot(y ~ x, main="gam")
+lines(x, mu)
+lines(x, fitted(mod), col=2)
+```
+
+# rpart/ctree
+
+```{r}
+library(rpart)
+fit <- rpart(y ~ x, method="anova")
+fit
+pr <- predict(fit, newdata=d)
+
+par(xpd = TRUE)
+plot(fit, compress = TRUE)
+text(fit, use.n = TRUE)
+
+plot(y ~ x, main="rpart")
+lines(x, mu)
+lines(x, pr, col=2)
+```
+
+```{r}
+library(partykit)
+
+fit2 <- ctree(y ~ x)
+fit2
+pr2 <- predict(fit2, newdata=d)
+
+plot(fit2)
+plot(y ~ x, main="ctree")
+#lines(x, mu)
+lines(x, pr2, col=2)
+```
+
+# gbm
+
+```{r}
+library(gbm)
+brt <- gbm(y ~ x, distribution="gaussian", 
+    interaction.depth=5, shrinkage = 0.0001, n.trees = 50000)
+brt
+pr3 <- predict(brt, newdata=d, n.trees=c(5000, 10000, 50000), type="response")
+
+plot(brt)
+plot(y ~ x, main="gbm")
+lines(x, mu)
+matlines(x, pr3, col=c(4,3,2), lty=1)
+```
+
+# glmnet
+
+<https://towardsdatascience.com/l1-and-l2-regularization-methods-ce25e7fc831c>
+
+```{r}
+library(glmnet)
+
+xx <- scale(as.matrix(d))
+gn <- glmnet(xx, y, alpha=1) # alpha=1 is LASSO
+plot(gn, label=TRUE)
+```
+
+```{r}
+cv <- cv.glmnet(xx, y)
+plot(cv)
+```
+
+```{r}
+pr4 <- predict(cv, newx=xx, type="response", s=cv$lambda.min)
+
+plot(y ~ x, main="glmnet")
+lines(x, mu)
+lines(x, pr4, col=2)
+```
+
+# Bootstrap
+
+```{r}
+set.seed(123)
+B <- 200
+BB <- cbind(1:n, replicate(B-1, sample.int(n, n, replace=TRUE)))
+dim(BB)
+
+m1 <- lm(y ~ x, d)
+m2 <- lm(y ~ x + x2, d)
+m3 <- lm(y ~ x + x2 + x3, d)
+m4 <- lm(y ~ x + x2 + x3 + x4, d)
+m5 <- lm(y ~ x + x2 + x3 + x4 + x5, d)
+m6 <- lm(y ~ x + x2 + x3 + x4 + x5 + x6, d)
+aic <- AIC(m1, m2, m3, m4, m5, m6)
+aic$dAIC <- aic$AIC - min(aic$AIC)
+aic
+best <- list(m1, m2, m3, m4, m5, m6)[[which.min(aic$AIC)]]
+
+dd <- model.frame(best)
+
+pr_mat <- matrix(0, 100, B)
+for (i in 1:B) {
+    mb <- lm(y ~ x + x2 + x3 + x4, dd[BB[,i],])
+    pr_mat[,i] <- predict(mb, newdata=d)
+}
+pr_int <- apply(pr_mat, 1, quantile, probs=c(0.025, 0.975))
+
+plot(y ~ x, main="lm, bootstrap", type="n")
+matlines(x, pr_mat, lty=1, col="lightgrey")
+points(x, y)
+lines(x, mu)
+lines(x, pr_mat[,1], col=2)
+lines(x, pr_int[1,], col=2, lty=2)
+lines(x, pr_int[2,], col=2, lty=2)
+```
+
+# Bagging
+
+```{r}
+ddd <- model.frame(m6)
+
+bag_fun <- function(i) {
+    mb1 <- lm(y ~ x, ddd[BB[,i],])
+    mb2 <- lm(y ~ x + x2, ddd[BB[,i],])
+    mb3 <- lm(y ~ x + x2 + x3, ddd[BB[,i],])
+    mb4 <- lm(y ~ x + x2 + x3 + x4, ddd[BB[,i],])
+    mb5 <- lm(y ~ x + x2 + x3 + x4 + x5, ddd[BB[,i],])
+    mb6 <- lm(y ~ x + x2 + x3 + x4 + x5 + x6, ddd[BB[,i],])
+    aic <- AIC(mb1, mb2, mb3, mb4, mb5, mb6)
+    j <- which.min(aic$AIC)
+    best <- list(mb1, mb2, mb3, mb4, mb5, mb6)[[j]]
+    pr <- predict(best, newdata=d)
+    attr(pr, "mid") <- j
+    pr
+}
+library(pbapply)
+res <- pblapply(1:B, bag_fun)
+
+mid <- sapply(res, attr, "mid")
+barplot(table(mid))
+
+pr_mat <- do.call(cbind, res)
+pr_int <- apply(pr_mat, 1, quantile, probs=c(0.025, 0.975))
+
+plot(y ~ x, main="lm, bagging", type="n")
+matlines(x, pr_mat, lty=1, col="lightgrey")
+points(x, y)
+lines(x, mu)
+lines(x, rowMeans(pr_mat), col=2)
+lines(x, pr_int[1,], col=2, lty=2)
+lines(x, pr_int[2,], col=2, lty=2)
+```
