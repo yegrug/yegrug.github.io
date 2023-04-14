@@ -6,6 +6,7 @@ title: Meetups
 
 ## 2023
 
+- [April 13: Data cloning workshop with Subhash Lele & Peter Solymos](2023-04-13)
 - [March 30: Linear regression in R with the lm function with Peter Solymos](2023-03-30)
 - [February 23: Fast spatial analysis and kriging on grids with Dean Koch](2023-02-23)
 
