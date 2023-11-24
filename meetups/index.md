@@ -6,7 +6,8 @@ title: Meetups
 
 ## 2023
 
-- [Oct 26: Agent based simulations in R with Peter Solymos](2023-10-26)
+- [November 23: R and Rust, like a match made in heaven with Andrés Felipe Quintero](2023-10-26)
+- [October 26: Agent based simulations in R with Peter Solymos](2023-10-26)
 - [May 22: Futureverse - A unifying parallelization framework in R for everyone with Henrik Bengtsson](2023-05-22)
 - [April 13: Data cloning workshop with Subhash Lele & Peter Solymos](2023-04-13)
 - [March 30: Linear regression in R with the lm function with Peter Solymos](2023-03-30)
